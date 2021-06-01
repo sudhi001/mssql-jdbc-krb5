@@ -4,8 +4,12 @@ import hadoop.sqlserver.jdbc.KerberosDriver
 import org.scalatest.{FreeSpec, Matchers}
 
 /**
- * Created by cab on 12/01/2016.
- */
+ * Created by IntelliJ IDEA.
+ *
+ * @author : Chandan Balu
+ * @created_date : 6/1/2021, Tue
+ * */
+
 class Krb5SqlServerTests extends FreeSpec with Matchers{
 
   "extract correct properties from jdbc url" in {
