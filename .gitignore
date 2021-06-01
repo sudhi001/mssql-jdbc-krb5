@@ -1,0 +1,12 @@
+# Git ignore files and folders for Ingestion Framework Project
+
+**/.idea
+**/build
+**/logs
+**/target
+**/out
+**/project
+derby.log
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
