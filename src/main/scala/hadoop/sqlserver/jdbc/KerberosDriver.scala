@@ -1,4 +1,4 @@
-package net.cabworks.jdbc
+package hadoop.sqlserver.jdbc
 
 import java.security.PrivilegedAction
 import java.sql.{Connection, Driver, DriverPropertyInfo, DriverManager,SQLException}
@@ -11,7 +11,7 @@ import org.apache.hadoop.hdfs.server.common.JspHelper.Url
 import org.apache.hadoop.security.UserGroupInformation
 import org.apache.hadoop.security.UserGroupInformation.AuthenticationMethod
 
-class Krb5SqlServer extends Driver {
+class KerberosDriver extends Driver {
 
 
   private val sqlServerDriver = new SQLServerDriver()
@@ -35,10 +35,10 @@ class Krb5SqlServer extends Driver {
   
   override def connect(url: String, info: Properties): Connection = {
   //def connect2(url: String, info: Properties): Connection = {
-    val krbUrl = Krb5SqlServer.toSqlServerUrl(url)
-    val connectionProps = Krb5SqlServer.connectionProperties(url)
-    val keytabFile = connectionProps(Krb5SqlServer.keytabFile)
-    val principal = connectionProps(Krb5SqlServer.principalKey)
+    val krbUrl = KerberosDriver.toSqlServerUrl(url)
+    val connectionProps = KerberosDriver.connectionProperties(url)
+    val keytabFile = connectionProps(KerberosDriver.keytabFile)
+    val principal = connectionProps(KerberosDriver.principalKey)
 
     val config = new Configuration()
     config.addResource("/etc/hadoop/conf/hdfs-site.xml")
@@ -61,7 +61,7 @@ class Krb5SqlServer extends Driver {
   override def getMajorVersion: Int = sqlServerDriver.getMajorVersion
 }
 
-object Krb5SqlServer {
+object KerberosDriver {
   
   def toSqlServerUrl(url: String): String = s"${head(url).replace(krbPrefix, sqlServerPrefix)};${connectionProperties(url).filter({case (k, v) => k != principalKey && k != keytabFile}).map({case (k, v) => s"$k=$v"}).mkString(";")};"
 
