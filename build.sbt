@@ -1,4 +1,4 @@
-name := "krb5sqljdbc"
+name := "mssql-jdbc-krb5"
 
 version := "1.0"
 
