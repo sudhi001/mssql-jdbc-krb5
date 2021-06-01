@@ -1,6 +1,5 @@
 package hadoop.sqlserver.jdbc
 
-import hadoop.sqlserver.jdbc.KerberosDriver
 import org.scalatest.{FreeSpec, Matchers}
 
 /**

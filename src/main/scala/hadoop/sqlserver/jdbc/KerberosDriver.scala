@@ -53,6 +53,14 @@ class KerberosDriver extends Driver {
      * In this method, we'll convert to the JDBC URL from our custom URL to MSSQL JDBC URL
      * within the  UserGroupInformation to use the principal and keytabFile
      */
+     
+    // Provid support to connect to MS SQL as local or cluster mode.
+    val mode: String = if (info.getProperty("mode",null)==null) "Cluster" else "Local"
+    getParentLogger.info("Providing connection through hadoop.sqlserver.jdbc.krb5.SQLServerDriver in " + mode +" mode" )
+    if(mode.toLowerCase()=="local"){
+      val krbUrl = KerberosDriver.toSqlServerUrl(url)
+      return sqlServerDriver.connect(krbUrl, info)
+    }
     val krbUrl = KerberosDriver.toSqlServerUrl(url)
     val connectionProps = KerberosDriver.connectionProperties(url)
     val keytabFile = connectionProps(KerberosDriver.keytabFile)

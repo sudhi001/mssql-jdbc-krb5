@@ -31,6 +31,12 @@ Here is the example JDBC URL you should use:
 "jdbc:krb5ss://<SERVER_NAME>:1433;databasename=<DATABASE_NAME>;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@LA.CORP.CARGILL.COM;krb5Keytab=/efs/home/c795701/c795701.keytab"
 ```
 
+Running test on "local" mode
+```
+java -cp ".:/efs/home/c795701/.ivy2/jars/mssql-jdbc-9.2.1.jre8.jar:/efs/home/c795701/mssql-jdbc-krb5/target/scala-2.10/mssql-jdbc-krb5_2.10-1.0.jar:/efs/home/c795701/.ivy2/jars/scala-library-2.11.1.jar:/efs/home/c795701/.m2/repository/org/apache/hadoop/hadoop-client/2.6.5/hadoop-client-2.6.5.jar" \
+hadoop.sqlserver.jdbc.KerberosJDBCClient
+```
+
 ### Sqoop
 
 Sqoop command
