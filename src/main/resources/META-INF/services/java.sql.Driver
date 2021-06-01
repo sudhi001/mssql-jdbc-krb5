@@ -1,1 +1,1 @@
-hadoop.sqlserver.jdbc.SQLServerDriver
+hadoop.sqlserver.jdbc.krb5.SQLServerDriver

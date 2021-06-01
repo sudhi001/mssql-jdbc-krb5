@@ -1,5 +1,6 @@
-import hadoop.sqlserver.jdbc.KerberosDriver;
+package hadoop.sqlserver.jdbc.krb5;
 
+import hadoop.sqlserver.jdbc.KerberosDriver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
