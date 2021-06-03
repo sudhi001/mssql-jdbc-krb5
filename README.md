@@ -1,4 +1,4 @@
-MS SQL Server JDBC driver support for Sqoop and Spark (mssql-jdbc-krb5)
+MS SQL Server JDBC driver support for Sqoop and Spark
 =======
 
 MS Sql Server JDBC driver wrapper to allow kerberized connections for Sqoop/Spark on Yarn cluster. 
@@ -28,7 +28,7 @@ mssql-jdbc-krb5_2.10-1.0.jar
 Here is the example JDBC URL you should use:
 
 ```
-"jdbc:krb5ss://<SERVER_NAME>:1433;databasename=<DATABASE_NAME>;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@LA.CORP.CARGILL.COM;krb5Keytab=/efs/home/c795701/c795701.keytab"
+"jdbc:krb5ss://<SERVER_NAME>:1433;databasename=<DATABASE_NAME>;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@NA.DOMAIN.COM;krb5Keytab=/efs/home/c795701/c795701.keytab"
 ```
 
 Running test on "local" mode
@@ -49,13 +49,41 @@ sqoop import -libjars "/efs/home/c795701/mssql-jdbc-krb5/target/scala-2.10/mssql
 -files "/efs/home/c795701/c795701.keytab" \
 --connection-manager org.apache.sqoop.manager.SQLServerManager \
 --driver hadoop.sqlserver.jdbc.krb5.SQLServerDriver \
---connect "jdbc:krb5ss://<SERVER_NAME>:1433;databasename=<DATABASE_NAME>;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@LA.CORP.CARGILL.COM;krb5Keytab=/efs/home/c795701/c795701.keytab" \
+--connect "jdbc:krb5ss://<SERVER_NAME>:1433;databasename=<DATABASE_NAME>;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@NA.DOMAIN.COM;krb5Keytab=/efs/home/c795701/c795701.keytab" \
 --query "SELECT TOP 1000 * FROM <TABLE_NAME> WHERE \$CONDITIONS" \
 --delete-target-dir \
 --target-dir "/dev/product/sandbox/<table_name>" \
 --num-mappers 1 \
 --verbose \
 -- --schema "dbo"
+```
+
+### Spark
+
+spark-shell command
+Start spark-shell with JARS
+```
+spark-shell --jars /efs/home/c795701/.ivy2/jars/mssql-jdbc-9.2.1.jre8.jar,/efs/home/c795701/mssql-jdbc-krb5/target/scala-2.10/mssql-jdbc-krb5_2.10-1.0.jar
+```
+```
+scala>val jdbcDF = spark.read.format("jdbc").option("url", "jdbc:krb5ss://<SERVER_NAME>:1433;databasename=<DATABASE_NAME>;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@NA.DOMAIN.COM;krb5Keytab=/efs/home/c795701/c795701.keytab").option("driver","hadoop.sqlserver.jdbc.krb5.SQLServ, "dbo.table_name").load()
+
+scala>jdbcDF.count()
+scala>jdbcDF.show(10)
+```
+
+spark-submit command
+com.spark.SparkJDBCIngestion - Spark JDBC dataframe operations
+ingestionframework-1.0-SNAPSHOT.jar - Your project build JAR
+
+```
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--jars "/efs/home/c795701/mssql-jdbc-krb5/target/scala-2.10/mssql-jdbc-krb5_2.10-1.0.jar,/efs/home/c795701/.ivy2/jars/scala-library-2.11.1.jar"
+--files /efs/home/c795701/c795701.keytab
+--class com.spark.SparkJDBCIngestion \
+/efs/home/c795701/ingestionframework/target/ingestionframework-1.0-SNAPSHOT.jar 
 ```
 
 ## Sqoop with Kerberos Authentication
