@@ -61,6 +61,7 @@ sqoop import -libjars "/efs/home/c795701/mssql-jdbc-krb5/target/scala-2.10/mssql
 ### Spark
 
 spark-shell command
+
 Start spark-shell with JARS
 ```
 spark-shell --jars /efs/home/c795701/.ivy2/jars/mssql-jdbc-9.2.1.jre8.jar,/efs/home/c795701/mssql-jdbc-krb5/target/scala-2.10/mssql-jdbc-krb5_2.10-1.0.jar
@@ -73,7 +74,9 @@ scala>jdbcDF.show(10)
 ```
 
 spark-submit command
+
 com.spark.SparkJDBCIngestion - Spark JDBC dataframe operations
+
 ingestionframework-1.0-SNAPSHOT.jar - Your project build JAR
 
 ```
