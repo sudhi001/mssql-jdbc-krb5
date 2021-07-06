@@ -18,9 +18,9 @@ object KerberosJDBCClient {
 
   def main(args: Array[String]): Unit = {
 
-    //String connUrl = "jdbc:sqlserver://msuselkgcp3874.na.corp.cargill.com:1433;databaseName=LIMSWareHouse;integratedSecurity=true;authenticationScheme=JavaKerberos";
+    //String connUrl = "jdbc:sqlserver://SERVERNAME:1433;databaseName=DATABASENAME;integratedSecurity=true;authenticationScheme=JavaKerberos";
 
-    val connUrl = "jdbc:krb5ss://msuselkgcp3874.na.corp.cargill.com:1433;databaseName=LIMSWareHouse;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@LA.CORP.CARGILL.COM;krb5Keytab=/efs/home/c795701/c795701.keytab"
+    val connUrl = "jdbc:krb5ss://SERVERNAME:1433;databaseName=DATABASENAME;integratedSecurity=true;authenticationScheme=JavaKerberos;krb5Principal=c795701@DOMAINNAME;krb5Keytab=/efs/home/c795701/c795701.keytab"
 
     System.out.println("Starting the Kerberos JDBC Client")
 
