@@ -111,15 +111,3 @@ This repository was enhanced from the work of Grzegorz Caban at https://github.c
 
 Alternatively, you can also use the JTDS driver, which supports the NTLM authentication.
 
-
-
-Steps I followed :
-
-1) I forked the https://github.com/chandanbalu/mssql-jdbc-krb5/tree/main and checkout to local machine
-2) Changed the scala version to 2.11.0
-3) Compiled the code 
-4) Run the KerberosJDBCClient code 
-
-
-I think the client works except the connection url issue only
-
