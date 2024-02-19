@@ -2,7 +2,7 @@ name := "mssql-jdbc-krb5"
 
 version := "1.0"
 
-scalaVersion := "2.10.5"
+scalaVersion := "2.11.0"
 
 libraryDependencies ++= Seq(
   "org.apache.hadoop" % "hadoop-client" % "2.6.0",
